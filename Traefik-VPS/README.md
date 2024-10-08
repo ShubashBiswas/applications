@@ -1,10 +1,9 @@
-# applications
+# # My-Applications
 ------------------------------------
 ## VPS Applications
 1. Ubuntu - 24.04 'Noble Numbat' (LTS)
-2. Dokploy - latest (0.9.4) - Available apps through templates are not included.
-3. Docker - latest (27.2.0)
-4. Traefik - latest (3.1.5)
+2. Docker - latest (27.2.0)
+3. Traefik - latest (3.1.5)
 ------------------------------------
 ## Database Applications
 1. MySQL - 8.4 (LTS)
@@ -30,3 +29,5 @@
 1. Stalwart Mail Server - latest (0.10.2)
 2. docker-mailserver (without gui) - latest (v14.0.0) ([docker-mailserver](https://github.com/docker-mailserver/docker-mailserver))
 3. mailcow - latest (2024-08a) - very resource intensive - not recommended
+## Email client
+1. SnappyMail

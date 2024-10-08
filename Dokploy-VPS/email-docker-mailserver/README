@@ -1,0 +1,32 @@
+## Install instructions
+1. Create a project in Dokploy
+2. Create a compose service inside the project
+3. Inside compose select the provider as Raw
+4. Paste the docker-compose.yml code to Raw and save
+6. paste environment variables and edit as your needs
+7. Go to the Domains tab and click on Add domain
+8. Select the service as SnappyMail Host as your domain
+9. Use port 8888
+10. Active SSL with Letsencript
+11. Deploy the code from the general tab and wait for few min after deployment is completed
+12. Open your given domain it should run perfectly.
+
+Note: SnappyMail is used as a placeholder service at mail.example.com for SSL for Docker Mail Server.
+
+## SnappyMail:
+  # You will need a domain name. E.g. 'mail.example.com' for this project this will work but for another mail server this maynot be work, then use another domain for snappy.
+  # snappymail will be available at: https://mail.example.com
+  # Admin panel: https://mail.example.com/?admin
+  # Get the Admin Panel password run this command at snappy terminal: cat /var/lib/snappymail/_data_/_default_/admin_password.txt
+
+# Mail server email setups commands
+1. setup email add <email> <password>
+2. setup email update <email> <password>
+3. setup email del <email>
+4. setup email list
+
+ex: setup email add admin@example.com passwd123
+
+# Multidomain setup
+1. DKIM
+    1. setup config dkim domain 'example.com,example.org'

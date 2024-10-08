@@ -1,0 +1,15 @@
+## Install instructions
+
+Note - This app have a template use the template. If that dosenot work use below methods. 
+
+#Steps
+1. Create a project in Dokploy
+2. Create a compose service inside the project
+3. Inside compose select the provider as Raw
+4. Paste the docker-compose.yml code into raw and edit
+5. Go to the Domains tab and click on Add domain
+6. Select the service as wordpress Host as your domain
+7. Use port 80
+8. Active SSL with Letsencript
+9. Deploy the code from the general tab and wait for few min after deployment is completed
+10. Open your given domain it should run perfectly.

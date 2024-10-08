@@ -1,0 +1,7 @@
+## Install instructions
+To view password run 
+docker logs <containner ID or NAME>
+Results: 🔑 Your administrator account is 'admin' with password '8HwfevHPg5'.
+
+SSL:
+Use ACME challenges for SSL/TLS for the email server.

@@ -1,0 +1,130 @@
+## Install instructions
+#This is a guide for running ERPNext to Dokploy You can follow the docker-compose.yml file for installation.
+
+#Steps
+1. Create a project in Dokploy
+2. Create a compose service inside the project
+3. Inside compose select the provider as Raw
+4. Paste the docker-compose.yml code to Raw and save
+5. Go to the Domains tab and click on Add domain
+6. Select the service as frontend Host as your domain
+7. Use port 8080
+8. Active SSL with Letsencript
+9. Deploy the code from the general tab and wait for 5-10 min after deployment is completed
+10. Open your given domain it should run perfectly.
+
+#For more frappe apps follow below commands
+
+#Core Apps:
+	frappe
+	erpnext
+	payments
+	webshop (eCommerce)
+-----------------------------------------
+#Additional-Apps:
+	hrms
+	insights
+	lms
+	lending
+	builder
+	helpdesk
+	healthcare	
+	crm
+	print_designer
+	wiki
+	gameplan
+	ury https://github.com/ury-erp/ury.git (Open Source Kitchen Display System for more https://github.com/orgs/ury-erp/repositories)
+	drive
+	Front Desk https://github.com/core-initiative/front-desk (Hotel Front Office)
+	ecommerce_integrations
+	erpnext-shipping
+	erpnext_price_estimation
+	non_profit
+	education
+	changemakers
+	restaurant_management (https://github.com/quantumbitcore/erpnext-restaurant.git)
+	agriculture
+	biometric-attendance-sync-tool
+	waba_integration (WhatsApp Business)
+	chat
+	hospitality ( manage hotels & restaurants)
+	bench_manager
+	nextcloud-integration
+-----------------------------------------
+#Standalone Application: books
+-----------------------------------------
+[frontend Container] bench get-app erpnext			
+[frontend Container] bench get-app payments
+[frontend Container] bench get-app webshop
+[frontend Container] bench get-app education
+[frontend Container] bench get-app lms
+[frontend Container] bench get-app hospitality
+[frontend Container] bench --site frontend install-app erpnext
+[frontend Container] bench --site frontend install-app payments
+[frontend Container] bench --site frontend install-app webshop
+[frontend Container] bench --site frontend install-app education
+[frontend Container] bench --site frontend install-app hospitality
+[frontend Container] bench --site frontend list-apps
+[frontend Container] bench migrate --skip-failing
+-----------------------------------------
+[backend Container] bench get-app erpnext
+[backend Container] bench get-app payments
+[backend Container] bench get-app webshop
+[backend Container] bench get-app education
+[backend Container] bench get-app lms
+[backend Container] bench get-app hospitality
+[backend Container] bench --site frontend install-app erpnext
+[backend Container] bench --site frontend install-app payments
+[backend Container] bench --site frontend install-app webshop
+[backend Container] bench --site frontend install-app education
+[backend Container] bench --site frontend install-app hospitality
+[backend Container] bench --site frontend list-apps
+[backend Container] bench migrate --skip-failing
+
+Stop all Container and run again
+----------------------------------------------
+[frontend Container for CSS broken] bench build --app frappe --hard-link
+[frontend Container for CSS broken] bench build --app erpnext --hard-link
+[frontend Container for CSS broken] bench build --app payments --hard-link
+[frontend Container for CSS broken] bench build --app webshop --hard-link
+[frontend Container for CSS broken] bench build --app education --hard-link
+[frontend Container for CSS broken] bench build --app hospitality --hard-link
+-----------------------------------------
+bench --site frontend clear-cache
+-----------------------------------------
+#Multitenant Setup (Not tested with dockploy)
+Assuming you've already got your first site running and performed the production deployment steps, this section explains how to host your second site (and more). 
+Your first site is automatically set as the default site. You can change it with the command,
+bench use sitename
+-----------------------------------------
+#Port-based multitenancy
+You can create a new site and run it on a different port (while the first one runs on port 80).
+# Switch off DNS based multitenancy (once)
+	$ bench config dns_multitenant off
+# Create a new site
+	$ bench new-site site2name
+# Set port
+	$ bench set-nginx-port site2name 82
+# Re generate nginx config
+	$ bench setup nginx
+# Reload nginx
+	$ sudo service nginx reload
+-----------------------------------------
+#DNS-based multitenancy (Not tested with dockploy)
+You can name your sites as the hostnames that would resolve it. Thus, all the sites you add to the bench will run on the same port and will be automatically selected based on the hostname.
+
+To make a new site under DNS-based multitenancy, perform the following steps.
+
+DNS-based multitenancy mode is disabled by default, you can switch it on / off using the command,
+	$ bench config dns_multitenant on
+
+Create a new site
+	$ bench new-site site2name.com
+
+Re-generate nginx config
+	$ bench setup nginx
+
+Reload nginx
+	$ sudo service nginx reload
+
+Note: For "DNS-based multitenancy", currentsite.txt in frappe-bench/sites/ should be empty.

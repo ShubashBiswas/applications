@@ -1,0 +1,50 @@
+version: '2'
+services:
+  # You will need a domain name. E.g. 'example.com'
+  # snappymail will be available at: https://webmail.example.com
+  # Admin panel: https://webmail.example.com/?admin
+  # Get the Admin Panel password: docker exec -it $( docker-compose ps -q snappymail ) cat /var/lib/snappymail/_data_/_default_/admin_password.txt
+  snappymail:
+    image: djmaze/snappymail:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      # http
+      - "traefik.http.routers.snappymail-http.entrypoints=web"
+      - "traefik.http.routers.snappymail-http.rule=Host(`webmail.example.com`)"
+      - "traefik.http.routers.snappymail-http.middlewares=snappymail-http-myRedirectScheme" # Redirect http to https
+      - "traefik.http.middlewares.snappymail-http-myRedirectScheme.redirectScheme.scheme=https" # Redirect http to https
+      # https
+      - "traefik.http.routers.snappymail.entrypoints=websecure"
+      - "traefik.http.routers.snappymail.tls"
+      - "traefik.http.routers.snappymail.rule=Host(`webmail.example.com`)"
+      - "traefik.http.services.snappymail.loadbalancer.server.port=8888"
+    ports:
+      - 8888:8888
+    environment:
+      - DEBUG=true
+    volumes:
+      - snappymail:/var/lib/snappymail
+    networks:
+      - default
+      - proxy
+    restart: unless-stopped
+
+  # This provides prometheus metrics for snappymail's php-fpm
+  php-fpm-exporter:
+    image: hipages/php-fpm_exporter:2.2.0
+    ports:
+      - 9253:9253
+    environment:
+      - PHP_FPM_SCRAPE_URI=tcp://snappymail:9000/status
+    networks:
+      - default
+
+networks:
+  default:
+  proxy:
+    external: true
+
+volumes:
+  snappymail:
+    driver: local

@@ -1,0 +1,29 @@
+services:
+  mailserver:
+    image: stalwartlabs/mail-server:latest
+    container_name: mailserver
+    restart: unless-stopped
+    hostname: mail.example.com
+    ports:
+      - "25:25"     # SMTP  (explicit TLS => STARTTLS, Authentication is DISABLED => use port 465/587 instead)
+      - "143:143"   # IMAP4 (explicit TLS => STARTTLS)
+      - "465:465"   # ESMTP (implicit TLS)
+      - "587:587"   # ESMTP (explicit TLS => STARTTLS)
+      - "993:993"   # IMAP4 (implicit TLS)
+      - "110:110"   # POP3  (explicit TLS => STARTTLS)
+      - "995:995"   # POP3  (implicit TLS)
+      - "4190:4190" # Managesieve (STARTTLS)
+    networks:
+      - proxy
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data:/opt/stalwart-mail
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mailserver.rule=Host(`mail.example.com`) || Host(`autodiscover.example.com`) || Host(`autoconfig.example.com`) || Host(`mta-sts.example.com`)
+      - traefik.http.routers.mailserver.entrypoints=websecure
+      - traefik.http.routers.mailserver.service=mailserver
+      - traefik.http.services.mailserver.loadbalancer.server.port=8080
+networks:
+  proxy:
+    external: true
