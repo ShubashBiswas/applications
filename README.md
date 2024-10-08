@@ -22,6 +22,7 @@
 ## CMS Applications
 1. WordPress - latest (6.6.2)
 2. OJS - latest(3.4.0-7)
+3. Ghost - 5
 ------------------------------------
 ## Newsletter Applications
 1. Listmonk - latest (3.0.0)
