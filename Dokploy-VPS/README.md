@@ -3,8 +3,8 @@
 ## VPS Applications
 1. Ubuntu - 24.04 'Noble Numbat' (LTS)
 2. Dokploy - latest (0.9.4)
-     Run Sudo: sudo su
-     Local install code: curl -sSL https://dokploy.com/install.sh | sudo sh
+3. Run Sudo: sudo su
+4. Local install code: curl -sSL https://dokploy.com/install.sh | sudo sh
 ------------------------------------
 ## Database Applications
 1. MySQL - 8.4 (LTS)
