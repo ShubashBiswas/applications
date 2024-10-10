@@ -1,6 +1,6 @@
 services:
   wordpress-db:
-    image: mariadb:11.4
+    image: mariadb:10.6
     environment:
       MYSQL_ROOT_PASSWORD: Pass12345
       MYSQL_DATABASE: wordpress
