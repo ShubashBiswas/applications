@@ -175,11 +175,11 @@ services:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
 volumes:
-  db-data: null
-  redis-queue-data: null
-  redis-cache-data: null
-  sites: null
-  logs: null
+  db-data:
+  redis-queue-data:
+  redis-cache-data:
+  sites:
+  logs:
 networks:
   dokploy-network:
     external: true
