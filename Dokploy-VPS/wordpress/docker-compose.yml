@@ -11,7 +11,7 @@ services:
       - wordpress_data:/var/www/html
 
   db:
-    image: mariadb:11.4
+    image: mariadb:10.6
     networks:
       - dokploy-network
     environment:
