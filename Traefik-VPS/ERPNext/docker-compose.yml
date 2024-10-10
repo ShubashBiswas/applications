@@ -1,6 +1,6 @@
 services:
   backend:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: on-failure
@@ -11,7 +11,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   configurator:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: none
@@ -41,7 +41,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: none
@@ -74,7 +74,7 @@ services:
         bench new-site --no-mariadb-socket --admin-password=admin --db-root-password=admin --install-app erpnext --set-default frontend;
 
   db:
-    image: mariadb:10.8
+    image: mariadb:10.6
     healthcheck:
       test: mysqladmin ping -h localhost --password=admin
       interval: 1s
@@ -95,7 +95,7 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     depends_on:
       - websocket
     deploy:
@@ -126,7 +126,7 @@ services:
       - traefik.http.services.frontendsecure.loadbalancer.server.port=8082
 
   queue-long:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: on-failure
@@ -142,7 +142,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   queue-short:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: on-failure
@@ -158,7 +158,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   redis-queue:
-    image: redis:7.4-alpine
+    image: redis:6.2-alpine
     deploy:
       restart_policy:
         condition: on-failure
@@ -168,7 +168,7 @@ services:
       - redis-queue-data:/data
 
   redis-cache:
-    image: redis:7.4-alpine
+    image: redis:6.2-alpine
     deploy:
       restart_policy:
         condition: on-failure
@@ -178,7 +178,7 @@ services:
       - redis-cache-data:/data
 
   scheduler:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: on-failure
@@ -192,7 +192,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   websocket:
-    image: frappe/erpnext:v15.38.0
+    image: frappe/erpnext:v15.38.1
     deploy:
       restart_policy:
         condition: on-failure
