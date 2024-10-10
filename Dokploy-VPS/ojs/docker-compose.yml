@@ -12,7 +12,7 @@ networks:
 
 services:
   db:
-    image: mariadb:11.4
+    image: mariadb:10.6
 #    env_file:
 #      - .env
     container_name: "ojs_db_${COMPOSE_PROJECT_NAME:-demo}"
