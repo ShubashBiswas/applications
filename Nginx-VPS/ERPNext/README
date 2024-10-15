@@ -33,7 +33,7 @@
 	print_designer
 	wiki
 	gameplan
-	ury https://github.com/ury-erp/ury.git (Open Source Kitchen Display System for more https://github.com/orgs/ury-erp/repositories)
+	ury (https://github.com/ury-erp/ury/blob/develop/INSTALLATION.md)
 	drive
 	Front Desk https://github.com/core-initiative/front-desk (Hotel Front Office)
 	ecommerce_integrations
@@ -65,7 +65,7 @@
 [frontend Container] bench --site frontend install-app education
 [frontend Container] bench --site frontend install-app hospitality
 [frontend Container] bench --site frontend list-apps
-[frontend Container] bench migrate --skip-failing
+[frontend Container] bench --site frontend migrate --skip-failing
 -----------------------------------------
 [backend Container] bench get-app erpnext
 [backend Container] bench get-app payments
@@ -79,7 +79,7 @@
 [backend Container] bench --site frontend install-app education
 [backend Container] bench --site frontend install-app hospitality
 [backend Container] bench --site frontend list-apps
-[backend Container] bench migrate --skip-failing
+[backend Container] bench --site frontend migrate --skip-failing
 
 Stop all Container and run again
 ----------------------------------------------
