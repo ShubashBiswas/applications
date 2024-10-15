@@ -3,7 +3,6 @@ To install Stalwart Mail Server on Linux or MacOS, execute the following command
 #Steps
 1. $ curl --proto '=https' --tlsv1.2 -sSf https://get.stalw.art/install.sh -o install.sh
 2. Then, execute the installation script as root. The default installation directory is /opt/stalwart-mail.
-3. If you are planning to use FoundationDB as the backend, add the --fdb parameter to the installation script to download the version compiled with FoundationDB support.
 4. $ sudo sh install.sh
 ✅ Configuration file written to /opt/stalwart-mail/etc/config.toml
 🔑 Your administrator account is 'admin' with password 'w95Yuiu36E'.

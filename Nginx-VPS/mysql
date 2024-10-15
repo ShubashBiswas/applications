@@ -1,0 +1,37 @@
+Access denied for user 'root'@'localhost'
+
+Option 1:
+
+sudo mysql -u root # I had to use "sudo" since it was a new installation
+
+mysql> USE mysql;
+mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+sudo service mysql restart
+
+
+Option 2: (replace YOUR_SYSTEM_USER with the username you have)
+sudo mysql -u root # I had to use "sudo" since it was a new installation
+
+mysql> USE mysql;
+mysql> CREATE USER 'YOUR_SYSTEM_USER'@'localhost' IDENTIFIED BY 'YOUR_PASSWD';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'YOUR_SYSTEM_USER'@'localhost';
+mysql> UPDATE user SET plugin='auth_socket' WHERE User='YOUR_SYSTEM_USER';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+sudo service mysql restart
+
+Remember that if you use option #2 you'll have to connect to MySQL as your system username (mysql -u YOUR_SYSTEM_USER).
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new-password';
+
+sudo service mysql stop
+sudo service mysql start
+
+
+SHOW DATABASES;
+DROP DATABASE database-name;

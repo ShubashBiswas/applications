@@ -15,11 +15,14 @@ Binary¶
 4. create database listmonk;
 5. create user listmonk with encrypted password 'listmonk0101';
 6. grant all privileges on database listmonk to listmonk;
+ALTER DATABASE listmonk OWNER TO listmonk;
+GRANT USAGE, CREATE ON SCHEMA PUBLIC TO listmonk;
 7. \q
-8. wget https://github.com/knadh/listmonk/releases/download/v2.4.0/listmonk_2.4.0_linux_amd64.tar.gz
-9. tar -zxvf listmonk_2.4.0_linux_amd64.tar.gz
+8. wget https://github.com/knadh/listmonk/releases/download/v3.0.0/listmonk_3.0.0_linux_amd64.tar.gz
+9. tar -zxvf listmonk_3.0.0_linux_amd64.tar.gz
 10. ./listmonk --new-config
 11. sudo nano config.toml
+
 12. Install the listmonk and run it
 13. ./listmonk --install
 14. ./listmonk
