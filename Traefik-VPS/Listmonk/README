@@ -1,2 +1,3 @@
 ## Install instructions
 docker compose run --rm app ./listmonk --install
+docker compose up -d
