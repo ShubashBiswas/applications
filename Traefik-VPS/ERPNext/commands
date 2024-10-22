@@ -39,78 +39,63 @@ Standalone Application: books
 docker compose -p pwd -f pwd.yml up -d
 docker logs  pwd-create-site-1 -f
 -----------------------------------------
-[frontend Container] bench get-app erpnext			
-[frontend Container] bench get-app payments
-[frontend Container] bench get-app webshop
-[frontend Container] bench get-app education
-[frontend Container] bench get-app lms
-[frontend Container] bench get-app hospitality
-[frontend Container] bench --site frontend install-app erpnext
-[frontend Container] bench --site frontend install-app payments
-[frontend Container] bench --site frontend install-app webshop
-[frontend Container] bench --site frontend install-app education
-[frontend Container] bench --site frontend install-app hospitality
-[frontend Container] bench --site frontend list-apps
-[frontend Container] bench migrate --skip-failing
+Get the app Frontend then Backend Container
+Install Guide (follow the correct steps)
+1. Get app on frontend Container
+2. install-app on-site frontend in frontend Container
+3. bench migrate
+4. Get the app on the Backend Container
+5. install-app on-site Backend in Backend Container
+6. bench migrate
+7. Restart all Container
+7. If the site is not loading css
+8. in the frontend, the Container runs a hard link for all installed apps
+9. clear-cache at end
 -----------------------------------------
-[backend Container] bench get-app erpnext
-[backend Container] bench get-app payments
-[backend Container] bench get-app webshop
-[backend Container] bench get-app education
-[backend Container] bench get-app lms
-[backend Container] bench get-app hospitality
-[backend Container] bench --site frontend install-app erpnext
-[backend Container] bench --site frontend install-app payments
-[backend Container] bench --site frontend install-app webshop
-[backend Container] bench --site frontend install-app education
-[backend Container] bench --site frontend install-app hospitality
-[backend Container] bench --site frontend list-apps
-[backend Container] bench migrate --skip-failing
-
-Stop all Container and run again
+[frontend & backend Container]
+bench get-app payments
+bench get-app webshop
+bench get-app education
+bench get-app lms
+bench get-app builder
+bench get-app healthcare
+bench get-app print_designer
+bench get-app https://github.com/NagariaHussain/doppio
+bench get-app ury https://github.com/ury-erp/ury.git
+bench get-app ury_mosaic https://github.com/ury-erp/mosaic.git
+bench get-app ury_pos https://github.com/ury-erp/pos.git
+bench get-app ury_pulse https://github.com/ury-erp/pulse.git
 ----------------------------------------------
-[frontend Container for CSS broken] bench build --app frappe --hard-link
-[frontend Container for CSS broken] bench build --app erpnext --hard-link
-[frontend Container for CSS broken] bench build --app payments --hard-link
-[frontend Container for CSS broken] bench build --app webshop --hard-link
-[frontend Container for CSS broken] bench build --app education --hard-link
-[frontend Container for CSS broken] bench build --app hospitality --hard-link
+[frontend & backend Container]
+bench --site frontend install-app payments
+bench --site frontend install-app webshop
+bench --site frontend install-app education
+bench --site frontend install-app lms
+bench --site frontend install-app builder
+bench --site frontend install-app healthcare
+bench --site frontend install-app print_designer
+bench --site frontend install-app ury
+bench --site frontend install-app ury_mosaic
+bench --site frontend install-app ury_pos
+bench --site frontend install-app ury_pulse
+-----------------------------------------
+Stop all Container and run again
+-----------------------------------------
+[Warning This command is only for frontend don't run it on the Backend]
+bench build --app frappe --hard-link
+bench build --app erpnext --hard-link
+bench build --app payments --hard-link
+bench build --app education --hard-link
+bench build --app lms --hard-link
+bench build --app builder --hard-link
+bench build --app healthcare --hard-link
+bench build --app print_designer --hard-link
+bench build --app ury --hard-link
+bench build --app ury_mosaic --hard-link
+bench build --app ury_pos --hard-link
+bench build --app ury_pulse --hard-link
 -----------------------------------------
 bench --site frontend clear-cache
+bench --site frontend clear-website-cache
 -----------------------------------------
-#Multitenant Setup
-Assuming you've already got your first site running and performed the production deployment steps, this section explains how to host your second site (and more). 
-Your first site is automatically set as the default site. You can change it with the command,
-bench use sitename
------------------------------------------
-# Port-based multitenancy
-You can create a new site and run it on a different port (while the first one runs on port 80).
-# Switch off DNS based multitenancy (once)
-	$ bench config dns_multitenant off
-# Create a new site
-	$ bench new-site site2name
-# Set port
-	$ bench set-nginx-port site2name 82
-# Re generate nginx config
-	$ bench setup nginx
-# Reload nginx
-	$ sudo service nginx reload
------------------------------------------
-# DNS-based multitenancy
-You can name your sites as the hostnames that would resolve it. Thus, all the sites you add to the bench will run on the same port and will be automatically selected based on the hostname.
-
-To make a new site under DNS-based multitenancy, perform the following steps.
-
-DNS-based multitenancy mode is disabled by default, you can switch it on / off using the command,
-	$ bench config dns_multitenant on
-
-Create a new site
-	$ bench new-site site2name.com
-
-Re-generate nginx config
-	$ bench setup nginx
-
-Reload nginx
-	$ sudo service nginx reload
-
-Note: For "DNS-based multitenancy", currentsite.txt in frappe-bench/sites/ should be empty.
+#Multitenant Setup is not supported
