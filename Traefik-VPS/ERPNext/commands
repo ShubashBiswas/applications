@@ -1,19 +1,15 @@
 Core Apps:
 	frappe
 	erpnext
-	payments
 	webshop (eCommerce)
 -----------------------------------------
 Add-ons: 
 	hrms
 	insights
-	lms
 	lending
-	builder
 	helpdesk
 	healthcare	
 	crm
-	print_designer
 	wiki
 	gameplan
 	ury https://github.com/ury-erp/ury.git (Open Source Kitchen Display System for more https://github.com/orgs/ury-erp/repositories)
@@ -53,13 +49,9 @@ Install Guide (follow the correct steps)
 9. clear-cache at end
 -----------------------------------------
 [frontend & backend Container]
-bench get-app payments
 bench get-app webshop
 bench get-app education
-bench get-app lms
-bench get-app builder
 bench get-app healthcare
-bench get-app print_designer
 bench get-app https://github.com/NagariaHussain/doppio
 bench get-app ury https://github.com/ury-erp/ury.git
 bench get-app ury_mosaic https://github.com/ury-erp/mosaic.git
@@ -67,13 +59,9 @@ bench get-app ury_pos https://github.com/ury-erp/pos.git
 bench get-app ury_pulse https://github.com/ury-erp/pulse.git
 ----------------------------------------------
 [frontend & backend Container]
-bench --site frontend install-app payments
 bench --site frontend install-app webshop
 bench --site frontend install-app education
-bench --site frontend install-app lms
-bench --site frontend install-app builder
 bench --site frontend install-app healthcare
-bench --site frontend install-app print_designer
 bench --site frontend install-app ury
 bench --site frontend install-app ury_mosaic
 bench --site frontend install-app ury_pos
@@ -84,12 +72,8 @@ Stop all Container and run again
 [Warning This command is only for frontend don't run it on the Backend]
 bench build --app frappe --hard-link
 bench build --app erpnext --hard-link
-bench build --app payments --hard-link
 bench build --app education --hard-link
-bench build --app lms --hard-link
-bench build --app builder --hard-link
 bench build --app healthcare --hard-link
-bench build --app print_designer --hard-link
 bench build --app ury --hard-link
 bench build --app ury_mosaic --hard-link
 bench build --app ury_pos --hard-link
