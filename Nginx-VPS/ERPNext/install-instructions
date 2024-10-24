@@ -130,7 +130,7 @@ Restart Supervisor and Launch Production Mode
 `sudo bench setup production [frappe-user]`
 If you are prompted to save the new/existing config file, respond with a Y.
 
-When this completes doing the settings, your instance is now on production mode and can be accessed using your IP, without needing to use the port.
+When this completes doing the settings, your instance is now in production mode and can be accessed using your IP, without needing to use the port.
 
 In today’s video, we will loon at how to implement multi-tenancy in ERPNext and the Frappe Framework.
 
@@ -176,7 +176,7 @@ For one-step automatic ssl installation
 If you prefer manual installation,. do the following:
 
 `sudo certbot certonly --nginx`
-Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. So no further steps are required. If necessary, you can test automatic renewal for your certificates by running this command:
+Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. So there's no need for any more steps. If necessary, you can test automatic renewal for your certificates by running this command:
 
 `sudo certbot renew --dry-run`
 --------------------------------
@@ -185,8 +185,9 @@ Share frappe site over local network
 2. run [bench --site erp.localhost set-config bind_address 0.0.0.0] to bind anyhost
 3. Alternatively, if you're using the Procfile, modify it to bind to 0.0.0.0 instead of 127.0.0.1.
 4. [nano Procfile] edit the line as {web: bench serve --port 8000 --bind 0.0.0.0}
-5. enable ufw then run [sudo ufw allow 8000][sudo ufw reload]
-6. http://<Ubuntu_IP>:8000
-7. to check [sudo netstat -tuln | grep 8000]
+5. add frappe site to host [sudo nano /etc/hosts] Ubuntu ip  frappe site ex: 192.168.x.x  erp.localhost
+6. enable ufw then run [sudo ufw allow 8000][sudo ufw reload]
+7. http://<Ubuntu_IP>:8000
+8. to check [sudo netstat -tuln | grep 8000]
 
-Wish you all the best.
+I wish you all the best.
