@@ -185,9 +185,12 @@ Share frappe site over local network
 2. run [bench --site erp.localhost set-config bind_address 0.0.0.0] to bind anyhost
 3. Alternatively, if you're using the Procfile, modify it to bind to 0.0.0.0 instead of 127.0.0.1.
 4. [nano Procfile] edit the line as {web: bench serve --port 8000 --bind 0.0.0.0}
-5. add frappe site to host [sudo nano /etc/hosts] Ubuntu ip  frappe site ex: 192.168.x.x  erp.localhost
-6. enable ufw then run [sudo ufw allow 8000][sudo ufw reload]
-7. http://<Ubuntu_IP>:8000
-8. to check [sudo netstat -tuln | grep 8000]
+5. edit ~/frappe-bench/config/nginx.conf file and change 127.0.0.1 to 0.0.0.0
+6. edit ~/frappe-bench/config/supervisor.conf file and change gunicorn 127.0.0.1:8000 to 0.0.0.0:8000
+7. edit [sudo nano /etc/nginx/sites-available/default} file and change 127.0.0.1:80 to 0.0.0.0:80
+8. add frappe site to host [sudo nano /etc/hosts] Ubuntu ip  frappe site ex: 192.168.x.x  erp.localhost
+9. enable ufw then run [sudo ufw allow 8000][sudo ufw reload]
+10. http://<Ubuntu_IP>:8000
+11. to check [sudo netstat -tuln | grep 8000]
 
 I wish you all the best.
