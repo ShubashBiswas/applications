@@ -179,4 +179,14 @@ If you prefer manual installation,. do the following:
 Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. So no further steps are required. If necessary, you can test automatic renewal for your certificates by running this command:
 
 `sudo certbot renew --dry-run`
+--------------------------------
+Share frappe site over local network
+1. run [ip addr | grep inet] note down wlan0 or eth0 network IP.
+2. run [bench --site erp.localhost set-config bind_address 0.0.0.0] to bind anyhost
+3. Alternatively, if you're using the Procfile, modify it to bind to 0.0.0.0 instead of 127.0.0.1.
+4. [nano Procfile] edit the line as {web: bench serve --port 8000 --bind 0.0.0.0}
+5. enable ufw then run [sudo ufw allow 8000][sudo ufw reload]
+6. http://<Ubuntu_IP>:8000
+7. to check [sudo netstat -tuln | grep 8000]
+
 Wish you all the best.
