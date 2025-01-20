@@ -17,7 +17,7 @@ A software like ERPNext, which is built on Frappe Framework, requires a number o
 Install GIT
 `sudo apt-get install git -y`
 Install Python Dependencies
-Installing ERPNext version 15 on Ubuntu 24.04 requires Python version 3.11+. This is what we will install in this step.
+Installing ERPNext version 15 on Ubuntu 24.04 requires Python version 3.12+. This is what we will install in this step.
 
 `python-dev
 sudo apt-get install python3-dev -y
@@ -64,7 +64,7 @@ Install Node
 `curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash`
 
 `source ~/.profile
-nvm install 18`
+nvm install 22`
 Install NPM
 `sudo apt-get install npm -y`
 Install Yarn
@@ -101,12 +101,12 @@ Next, we will download ERPNext app
 `bench get-app --branch version-15 erpnext`
 Download any other app you may be interested in in a similar manner. For instance, if you need the Human Resource app to be installed, use the following command.
 
-`bench get-app hrms`
+`bench get-app webshop`
 Install all the apps on our site
 `bench --site [site-name] install-app erpnext`
 Install all the other apps you downloaded in the same way. For example, if you downloaded the human resource app, use the below command to install it.
 
-`bench --site [site-name] install-app hrms`
+`bench --site [site-name] install-app webshop`
 We have successfully setup ERPNext version 15 on ubuntu 24.04. You can start the server by running the below command:
 
 `bench start`
