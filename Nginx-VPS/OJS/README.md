@@ -1,59 +1,82 @@
 ## Steps
 # Step 1 – Installing Nginx
-sudo apt install nginx
+# Step 2 – Installing Prerequisite
+```console
+sudo apt install php-fpm php-mysql php-xml php-intl php-mbstring nginx
+```
 
-# Step 2 – Checking your Web Server
-systemctl status nginx
+# Step 3 – install MySQL
+```console
+sudo apt update
+sudo apt install mysql-server
+sudo mysql_secure_installation
+```
 
-# Step 3 – Managing the Nginx Process
-sudo systemctl start nginx
-sudo systemctl restart nginx
-sudo systemctl reload nginx
-sudo systemctl disable nginx
-sudo systemctl enable nginx
+```console
+mysql -u root -p
+CREATE DATABASE ojs_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_520_ci;
+CREATE USER 'ojs_user'@'localhost' IDENTIFIED BY 'ojs_password';
+GRANT ALL ON ojs_db.* TO 'ojs_user'@'localhost';
+```
 
-# Step 4 – Setting Up Server Blocks
-sudo mkdir -p /var/www/your_domain/html
-sudo chown -R $USER:$USER /var/www/your_domain/html
-sudo chmod -R 755 /var/www/your_domain
-sudo nano /var/www/your_domain/html/index.html
-
-<html>
-    <head>
-        <title>Welcome to your_domain!</title>
-    </head>
-    <body>
-        <h1>Success!  The your_domain server block is working!</h1>
-    </body>
-</html>
-
+# Step 4 – Configuring Nginx
+```console
 sudo nano /etc/nginx/sites-available/your_domain
-
+```
+```markdown
 server {
-        listen 80;
-        listen [::]:80;
+    listen 80;
+    listen [::]:80;
 
-        root /var/www/your_domain/html;
-        index index.html index.htm index.nginx-debian.html;
+    root /var/www/ojs;
+    index index.php;
 
-        server_name your_domain www.your_domain;
+    server_name server_domain_or_IP;
 
-        location / {
-                try_files $uri $uri/ =404;
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt { log_not_found off; access_log off; allow all; }
+    location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
+        expires max;
+        log_not_found off;
+    }
+    location / {
+    	try_files $uri $uri/ /index.php?$args;
+    }
+
+location ~ ^(.+\.php)(.*)$ {
+        set $path_info $fastcgi_path_info;
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        fastcgi_param PATH_INFO $path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$path_info;
+
+        if (!-f $document_root$fastcgi_script_name) {
+            return 404;
         }
-}
 
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+    }
+}
+```
+
+```console
 sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
-
-sudo nano /etc/nginx/nginx.conf
-
-...
-http {
-    ...
-    server_names_hash_bucket_size 64;
-    ...
-}
-...
-
 sudo nginx -t
 sudo systemctl restart nginx
+```
+
+# Step 4 – Installing Open Journal System
+```markdown
+cd /tmp
+curl -LO https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz
+tar xzvf ojs-3.4.0-8.tar.gz 
+sudo cp -a /tmp/ojs-3.4.0-8/. /var/www/ojs
+```
+
+```console
+sudo chown -R www-data:www-data /var/www/ojs
+sudo mkdir /var/www/ojs-files
+sudo chown -R www-data:www-data /var/www/ojs-files
+```
+Let's visit the following link on a browser.
+[http://server_domain_or_IP/](https://)
