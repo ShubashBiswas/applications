@@ -18,7 +18,7 @@ sudo systemctl disable nginx
 sudo systemctl enable nginx
 ```
 
-## Step 4 – Setting Up Server Blocks
+## Step 4 – Setting Up Server Blocks Example
 ```console
 sudo mkdir -p /var/www/your_domain/html
 sudo chown -R $USER:$USER /var/www/your_domain/html
@@ -41,7 +41,7 @@ sudo nano /var/www/your_domain/html/index.html
 sudo nano /etc/nginx/sites-available/your_domain
 ```
 
-```console
+```markdown
 server {
         listen 80;
         listen [::]:80;
@@ -76,4 +76,42 @@ http {
 ```console
 sudo nginx -t
 sudo systemctl restart nginx
+```
+## Step 5 – Steps to Install SSL
+Install snapd on your machine
+
+```console
+sudo apt install snapd
+
+```
+Update snapd
+```console
+sudo snap install core;
+sudo snap refresh core
+```
+
+Remove existing installations of certbot
+```console
+sudo apt-get remove certbot
+```
+Install certbot
+```console
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+For one-step automatic ssl installation
+```console
+sudo certbot --nginx
+```
+
+If you prefer manual installation,. do the following:
+```console
+sudo certbot certonly --nginx
+```
+
+Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. So there's no need for any more steps. If necessary, you can test automatic renewal for your certificates by running this command:
+
+```console
+sudo certbot renew --dry-run
 ```
