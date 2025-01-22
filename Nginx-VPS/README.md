@@ -1,18 +1,18 @@
-## Steps
-# Step 1 – Installing Nginx
+# Steps
+## Step 1 – Installing Nginx
 sudo apt install nginx
 
-# Step 2 – Checking your Web Server
+## Step 2 – Checking your Web Server
 systemctl status nginx
 
-# Step 3 – Managing the Nginx Process
+## Step 3 – Managing the Nginx Process
 sudo systemctl start nginx
 sudo systemctl restart nginx
 sudo systemctl reload nginx
 sudo systemctl disable nginx
 sudo systemctl enable nginx
 
-# Step 4 – Setting Up Server Blocks
+## Step 4 – Setting Up Server Blocks
 sudo mkdir -p /var/www/your_domain/html
 sudo chown -R $USER:$USER /var/www/your_domain/html
 sudo chmod -R 755 /var/www/your_domain
