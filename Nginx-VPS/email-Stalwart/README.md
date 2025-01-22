@@ -15,81 +15,19 @@ Setting up a **Stalwart Mail Server** on an Ubuntu VPS with Nginx involves sever
 sudo apt update && sudo apt upgrade -y
 ```
 
----
+### **Step 2: install Stalwart Mail Server on Linux**
+To install Stalwart Mail Server on Linux or MacOS, execute the following command in your terminal:
 
-### **Step 2: Install Dependencies**
-Stalwart Mail depends on certain libraries and tools:
 ```bash
-sudo apt install -y build-essential libssl-dev libsqlite3-dev wget curl gnupg2 unzip
+$ curl --proto '=https' --tlsv1.2 -sSf https://get.stalw.art/install.sh -o install.sh
 ```
 
----
-
-### **Step 3: Install and Configure Nginx**
-1. Install Nginx:
-   ```bash
-   sudo apt install -y nginx
-   ```
-2. Set up SSL with Let's Encrypt (recommended for security):
-   ```bash
-   sudo apt install -y certbot python3-certbot-nginx
-   sudo certbot --nginx -d mail.yourdomain.com
-   ```
-   Replace `mail.yourdomain.com` with your domain name.
-3. Verify SSL auto-renewal:
-   ```bash
-   sudo certbot renew --dry-run
-   ```
-
----
-
-### **Step 4: Install Stalwart Mail**
-1. Download the latest release of Stalwart Mail binaries:
-   ```bash
-   wget https://github.com/stalwartlabs/mail-server/releases/latest/download/stalwart-mail-linux-amd64.zip
-   ```
-2. Unzip and move the binaries to `/usr/local/bin`:
-   ```bash
-   unzip stalwart-mail-linux-amd64.zip
-   sudo mv stalwart-mail /usr/local/bin/
-   sudo chmod +x /usr/local/bin/stalwart-mail
-   ```
-
----
-
-### **Step 5: Configure Stalwart Mail**
-1. Create the configuration directory:
-   ```bash
-   sudo mkdir -p /etc/stalwart-mail
-   ```
-2. Generate a basic configuration file:
-   ```bash
-   sudo nano /etc/stalwart-mail/stalwart.toml
-   ```
-   Example configuration:
-   ```toml
-   [server]
-   hostname = "mail.yourdomain.com"
-   data_dir = "/var/lib/stalwart-mail"
-
-   [imap]
-   listen = "0.0.0.0:143"
-
-   [smtp]
-   listen = "0.0.0.0:25"
-   hostname = "mail.yourdomain.com"
-
-   [jmap]
-   listen = "0.0.0.0:8000"
-   ```
-
-3. Ensure the data directory exists:
-   ```bash
-   sudo mkdir -p /var/lib/stalwart-mail
-   sudo chown -R $(whoami): /var/lib/stalwart-mail
-   ```
-
----
+```htm
+✅ Configuration file written to /opt/stalwart-mail/etc/config.toml
+🔑 Your administrator account is 'admin' with password 'password'.
+Created symlink /etc/systemd/system/multi-user.target.wants/stalwart-mail.service → /etc/systemd/system/stalwart-mail.service.
+🎉 Installation complete! Continue the setup at http://IP.:8080/login
+```
 
 ### **Step 6: Configure Nginx for Stalwart Mail**
 Edit the Nginx configuration to reverse-proxy the JMAP service:
@@ -136,50 +74,14 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
----
-
-### **Step 7: Start Stalwart Mail**
-1. Create a systemd service file:
+### **Step 3: Configure SSL**
+1. Set up SSL with Let's Encrypt (recommended for security):
    ```bash
-   sudo nano /etc/systemd/system/stalwart-mail.service
+   sudo apt install -y certbot python3-certbot-nginx
+   sudo certbot --nginx -d mail.yourdomain.com
    ```
-   Add the following:
-   ```ini
-   [Unit]
-   Description=Stalwart Mail Server
-   After=network.target
-
-   [Service]
-   ExecStart=/usr/local/bin/stalwart-mail --config /etc/stalwart-mail/stalwart.toml
-   Restart=on-failure
-
-   [Install]
-   WantedBy=multi-user.target
-   ```
-
-2. Start and enable the service:
+   Replace `mail.yourdomain.com` with your domain name.
+2. Verify SSL auto-renewal:
    ```bash
-   sudo systemctl daemon-reload
-   sudo systemctl start stalwart-mail
-   sudo systemctl enable stalwart-mail
+   sudo certbot renew --dry-run
    ```
-
----
-
-### **Step 8: Configure DNS**
-Set up DNS records for your domain:
-- **MX Record**: `mail.yourdomain.com` pointing to your VPS.
-- **A Record**: `mail.yourdomain.com` pointing to your VPS IP.
-- **SPF Record**: `v=spf1 mx -all`
-- **DKIM and DMARC**: Generate keys and add the corresponding DNS records.
-
----
-
-### **Step 9: Test Your Mail Server**
-1. Use an email client (like Thunderbird) to connect to your IMAP/SMTP server.
-2. Test sending and receiving emails.
-3. Verify JMAP functionality by testing through a client supporting JMAP.
-
----
-
-Let me know if you'd like help with DNS setup, SPF/DKIM/DMARC configuration, or testing!

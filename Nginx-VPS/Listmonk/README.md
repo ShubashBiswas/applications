@@ -23,10 +23,25 @@ GRANT USAGE, CREATE ON SCHEMA PUBLIC TO listmonk;
 \q
 ```
 ```console
+cd /opt
+mkdir listmonk
 wget https://github.com/knadh/listmonk/releases/download/v4.1.0/listmonk_4.1.0_linux_amd64.tar.gz
 tar -zxvf listmonk_4.1.0_linux_amd64.tar.gz
 ./listmonk --new-config
 sudo nano config.toml
+```
+```htm
+address = "localhost:9000"
+
+# Database.
+[db]
+host = "localhost"
+port = 5432
+user = "listmonk"
+password = "listmonk0101"
+
+# Ensure that this database has been created in Postgres.
+database = "listmonk"
 ```
 
 Install the listmonk and run it
@@ -58,9 +73,9 @@ WantedBy=multi-user.target
 ```
 
 ```console
-systemctl daemon-reload
-systemctl enable listmonk
-systemctl start listmonk
+sudo systemctl daemon-reload
+sudo systemctl enable listmonk
+sudo systemctl start listmonk
 ```
 4. Configure nginx as Reverse Proxy
 ```console
