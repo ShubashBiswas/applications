@@ -13,10 +13,12 @@ sudo apt-get upgrade -y
 2. Create a new user – (bench user)
 In Linux, the root user processes escalated privileges to perform any tasks within the system. This is why it is not advisable to use this user on a daily basis. We will create a user that we can use, and this will be the user we will also use as the Frappe Bench User.
 
-`> sudo adduser [frappe-user]`
-`usermod -aG sudo [frappe-user]`
-`su [frappe-user]` 
-`cd /home/[frappe-user]`
+```markdown
+> sudo adduser [frappe-user]
+usermod -aG sudo [frappe-user]
+su [frappe-user]
+cd /home/[frappe-user]
+```
 
 Ensure you have replaced [frappe-user] with your username. eg. sudo adduser frappe
 
@@ -24,26 +26,34 @@ Ensure you have replaced [frappe-user] with your username. eg. sudo adduser frap
 A software like ERPNext, which is built on Frappe Framework, requires a number of packages in order to run smoothly. These are the packages we will be installing in this step.
 
 Install GIT
-`sudo apt-get install git -y
-`
+```markdown
+sudo apt-get install git -y
+```
 Install Python Dependencies
 Installing ERPNext version 15 on Ubuntu 24.04 requires Python version 3.12+. This is what we will install in this step.
 
 Python-dev
-`sudo apt-get install python3-dev -y
-`
+```markdown
+sudo apt-get install python3-dev -y
+```
 Setuptools and pip
+```markdown
 sudo apt-get install python3-setuptools python3-pip -y
+```
 
 Virtualenv
+```markdown
 sudo apt install python3.12-venv -y
+```
 
 Install MariaDB
 ERPNext is built to naively run on MariaDB. Lets go ahead and set that up now.
 
+```markdown
 sudo apt-get install software-properties-common -y
 sudo apt install mariadb-server -y
 sudo mysql_secure_installation
+```
 
 When you run this command, the server will show the following prompts. Please follow the steps as shown below to complete the setup correctly.
 
@@ -62,6 +72,7 @@ sudo nano /etc/mysql/my.cnf
 
 Add the following block of code to the end of the file, exactly as is:
 
+```markdown
 [mysqld]
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
@@ -69,13 +80,16 @@ collation-server = utf8mb4_unicode_ci
 
 [mysql]
 default-character-set = utf8mb4
+```
 
 Restart the MYSQL Server
 sudo service mysql restart
 
 Install Redis Server
+```console
 sudo apt-get install redis-server -y
 
+```
 4. Install CURL, Node, NPM and Yarn
 Install CURL
 sudo apt install curl
