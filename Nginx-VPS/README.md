@@ -1,47 +1,59 @@
-Step 1 — Installing Nginx
-1. $ sudo apt update
-2. $ sudo apt install nginx
-3. sudo ufw allow 'Nginx HTTP' - optinal
-4. systemctl status nginx
+## Steps
+# Step 1 – Installing Nginx
+sudo apt install nginx
 
-Step 2 — Configuring your Server Block
-1. sudo nano /etc/nginx/sites-available/your_domain
+# Step 2 – Checking your Web Server
+systemctl status nginx
 
-Insert the following into your new file, making sure to replace your_domain and app_server_address. If you do not have an application server to test with, default to using http://127.0.0.1:8000 for the optional Gunicorn server setup in Step 3:
+# Step 3 – Managing the Nginx Process
+sudo systemctl start nginx
+sudo systemctl restart nginx
+sudo systemctl reload nginx
+sudo systemctl disable nginx
+sudo systemctl enable nginx
 
-/etc/nginx/sites-available/your_domain
+# Step 4 – Setting Up Server Blocks
+sudo mkdir -p /var/www/your_domain/html
+sudo chown -R $USER:$USER /var/www/your_domain/html
+sudo chmod -R 755 /var/www/your_domain
+sudo nano /var/www/your_domain/html/index.html
+
+<html>
+    <head>
+        <title>Welcome to your_domain!</title>
+    </head>
+    <body>
+        <h1>Success!  The your_domain server block is working!</h1>
+    </body>
+</html>
+
+sudo nano /etc/nginx/sites-available/your_domain
 
 server {
-    listen 80;
-    listen [::]:80;
+        listen 80;
+        listen [::]:80;
 
-    server_name your_domain www.your_domain;
-        
-    location / {
-        proxy_pass app_server_address;
-        include proxy_params;
-    }
+        root /var/www/your_domain/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name your_domain www.your_domain;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
 }
 
-/etc/nginx/proxy_params
+sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
 
-proxy_set_header Host $http_host;
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-proxy_set_header X-Forwarded-Proto $scheme;
+sudo nano /etc/nginx/nginx.conf
 
-Next, enable this configuration file by creating a link from it to the sites-enabled directory that Nginx reads at startup:
+...
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+...
 
-$ sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
-$ sudo nginx -t
-$ sudo systemctl restart nginx
-
-Step 3 — Testing your Reverse Proxy with Gunicorn (Optional)
-$ sudo apt update
-$ sudo apt install gunicorn
-$ nano test.py
-def app(environ, start_response):
-    start_response("200 OK", [])
-    return iter([b"Hello, World!"])
-
-$ gunicorn --workers=2 test:app
+sudo nginx -t
+sudo systemctl restart nginx
