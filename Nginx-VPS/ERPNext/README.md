@@ -29,6 +29,7 @@ Install GIT
 sudo apt-get install git -y
 ```
 Install Python Dependencies
+
 Installing ERPNext version 15 on Ubuntu 24.04 requires Python version 3.12+. This is what we will install in this step.
 
 Python-dev
@@ -57,13 +58,21 @@ sudo mysql_secure_installation
 When you run this command, the server will show the following prompts. Please follow the steps as shown below to complete the setup correctly.
 
 Enter current password for root: (Enter your SSH root user password)
+
 Switch to unix_socket authentication [Y/n]: Y
+
 Change the root password? [Y/n]: Y
+
 It will ask you to set new MySQL root password at this step. This can be different from the SSH root user password.
+
 Remove anonymous users? [Y/n] Y
+
 Disallow root login remotely? [Y/n]: N
+
 This is set as N because we might want to access the database from a remote server for using business analytics software like Metabase / PowerBI / Tableau, etc.
+
 Remove test database and access to it? [Y/n]: Y
+
 Reload privilege tables now? [Y/n]: Y
 
 Edit MYSQL default config file
@@ -114,10 +123,14 @@ Install wkhtmltopdf
 ```console
 sudo apt-get install xvfb libfontconfig wkhtmltopdf -y
 ```
+
 Install Frappe Bench
+
 In this step, we need to supply the – H and –break-system-packages flags. The flags do the following:
 -H: Sets the HOME environment variable to the home directory of the target user. This ensures that the package installation happens in the correct directory and avoids permission issues.
+
 --break-system-packages: Overrides the default behavior of pip to avoid breaking system packages. This flag is used to indicate that you are aware that this installation might cause conflicts with the system package manager, but you want to proceed anyway.
+
 ```console
 sudo -H pip3 install frappe-bench --break-system-packages
 ```
@@ -139,11 +152,13 @@ This will give the bench user execution permission to the home directory.
 chmod -R o+rx /home/[frappe-user]
 ```
 Create a New Site
+
 A site is a requirement in ERPNext, Frappe and all the other apps we will be needing to install. We will create the site in this step.
 ```console
 bench new-site [site-name]
 ```
 Install ERPNext and other Apps
+
 Download all the apps we want to install
 The first app we will download is the payments app. This app is required when setting up ERPNext.
 ```console
