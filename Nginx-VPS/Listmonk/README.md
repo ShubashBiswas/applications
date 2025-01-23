@@ -25,15 +25,16 @@ GRANT USAGE, CREATE ON SCHEMA PUBLIC TO listmonk;
 3. Install listmonk
 ```console
 cd /opt
-mkdir listmonk
-wget https://github.com/knadh/listmonk/releases/download/v4.1.0/listmonk_4.1.0_linux_amd64.tar.gz
-tar -zxvf listmonk_4.1.0_linux_amd64.tar.gz
-./listmonk --new-config
+sudo mkdir listmonk
+cd listmonk
+sudo wget https://github.com/knadh/listmonk/releases/download/v4.1.0/listmonk_4.1.0_linux_amd64.tar.gz
+sudo tar -zxvf listmonk_4.1.0_linux_amd64.tar.gz
+sudo ./listmonk --new-config
 sudo nano config.toml
 ```
 4. Edit the config
 ```htm
-address = "localhost:9000"
+address = "0.0.0.0:9000"
 
 # Database.
 [db]
