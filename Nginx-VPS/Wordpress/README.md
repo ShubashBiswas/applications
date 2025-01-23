@@ -62,4 +62,6 @@ Visit example.com for wordpress web installation
 
 # Step 7 – VS Code Permissions.
 Change File Ownership (Recommended for Development)
-sudo chown -R your-username:your-username /var/www/wordpress
+```console
+sudo chown -R your-username:your-username /var/www/
+```

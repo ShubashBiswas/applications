@@ -45,4 +45,6 @@ default-character-set = utf8mb4
 ```
 
 Restart the MYSQL Server
+```console
 sudo service mysql restart
+```

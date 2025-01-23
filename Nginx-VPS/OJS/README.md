@@ -77,4 +77,6 @@ Let's visit the following link on a browser.
 
 # Step 5 – VS Code Permissions.
 Change File Ownership (Recommended for Development)
-sudo chown -R your-username:your-username /var/www/ojs
+```console
+sudo chown -R your-username:your-username /var/www/
+```
