@@ -8,8 +8,7 @@
 ## Database Applications
 1. MariaDB - 11.4
 2. PostgreSQL - latest
-3. redis - latest
-4. phpMyAdmin - latest
+3. phpMyAdmin - latest
 ------------------------------------
 ## Application Language
 1. PHP - 8.3

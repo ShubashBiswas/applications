@@ -6,9 +6,9 @@ Note - This app have a template use the template. If that dosenot work use below
 1. Update System and Install Dependencies
 
 ```console
-sudo apt update
+sudo apt update && sudo apt upgrade -y
 ```
-
+2. Install Postgres Database
 ```console
 sudo apt install postgresql postgresql-contrib
 sudo -u postgres psql
@@ -22,6 +22,7 @@ ALTER DATABASE listmonk OWNER TO listmonk;
 GRANT USAGE, CREATE ON SCHEMA PUBLIC TO listmonk;
 \q
 ```
+3. Install listmonk
 ```console
 cd /opt
 mkdir listmonk
@@ -30,6 +31,7 @@ tar -zxvf listmonk_4.1.0_linux_amd64.tar.gz
 ./listmonk --new-config
 sudo nano config.toml
 ```
+4. Edit the config
 ```htm
 address = "localhost:9000"
 
@@ -44,13 +46,13 @@ password = "listmonk0101"
 database = "listmonk"
 ```
 
-Install the listmonk and run it
+5. Install the listmonk and run it
 ```console
 ./listmonk --install
 ./listmonk
 ```
 
-Now we need to start listmonk, and obviously we want to use systemctl to keep it always running:
+6. Now we need to start listmonk, and obviously we want to use systemctl to keep it always running:
 
 ```console
 sudo nano /etc/systemd/system/listmonk.service
@@ -77,7 +79,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable listmonk
 sudo systemctl start listmonk
 ```
-4. Configure nginx as Reverse Proxy
+7. Configure nginx as Reverse Proxy
 ```console
 sudo nano /etc/nginx/sites-available/listmonk
 ```

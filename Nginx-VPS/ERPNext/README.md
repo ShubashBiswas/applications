@@ -1,15 +1,14 @@
 ## Install instructions
 This is a guide for running ERPNext to Ubuntu with Nginx
 
-## Server Settings
+## 1. Server Settings
 1. Update and Upgrade Packages
 
 ```console
-sudo apt-get update -y
-sudo apt-get upgrade -y
+sudo apt update && sudo apt upgrade -y
 ```
 
-# Create a new user – (bench user)
+# 2. Create a new user – (bench user)
 In Linux, the root user processes escalated privileges to perform any tasks within the system. This is why it is not advisable to use this user on a daily basis. We will create a user that we can use, and this will be the user we will also use as the Frappe Bench User.
 
 ```console
@@ -21,7 +20,7 @@ cd /home/[frappe-user]
 
 Ensure you have replaced [frappe-user] with your username. eg. sudo adduser frappe
 
-# Install Required Packages
+# 3. Install Required Packages
 A software like ERPNext, which is built on Frappe Framework, requires a number of packages in order to run smoothly. These are the packages we will be installing in this step.
 
 Install GIT
@@ -46,60 +45,15 @@ Virtualenv
 sudo apt install python3.12-venv -y
 ```
 
-Install MariaDB
-ERPNext is built to naively run on MariaDB. Lets go ahead and set that up now.
-
-```console
-sudo apt-get install software-properties-common -y
-sudo apt install mariadb-server -y
-sudo mysql_secure_installation
-```
-
-When you run this command, the server will show the following prompts. Please follow the steps as shown below to complete the setup correctly.
-
-Enter current password for root: (Enter your SSH root user password)
-
-Switch to unix_socket authentication [Y/n]: Y
-
-Change the root password? [Y/n]: Y
-
-It will ask you to set new MySQL root password at this step. This can be different from the SSH root user password.
-
-Remove anonymous users? [Y/n] Y
-
-Disallow root login remotely? [Y/n]: N
-
-This is set as N because we might want to access the database from a remote server for using business analytics software like Metabase / PowerBI / Tableau, etc.
-
-Remove test database and access to it? [Y/n]: Y
-
-Reload privilege tables now? [Y/n]: Y
-
-Edit MYSQL default config file
-```console
-sudo nano /etc/mysql/my.cnf
-```
-Add the following block of code to the end of the file, exactly as is:
-
-```console
-[mysqld]
-character-set-client-handshake = FALSE
-character-set-server = utf8mb4
-collation-server = utf8mb4_unicode_ci
-
-[mysql]
-default-character-set = utf8mb4
-```
-
-Restart the MYSQL Server
-sudo service mysql restart
+## 4. Install MariaDB
+See MariaDB install document
 
 Install Redis Server
 ```console
 sudo apt-get install redis-server -y
 
 ```
-# Install CURL, Node, NPM and Yarn
+# 5. Install CURL, Node, NPM and Yarn
 Install CURL
 ```console
 sudo apt install curl
@@ -124,7 +78,7 @@ Install wkhtmltopdf
 sudo apt-get install xvfb libfontconfig wkhtmltopdf -y
 ```
 
-Install Frappe Bench
+## 6. Install Frappe Bench
 
 In this step, we need to supply the – H and –break-system-packages flags. The flags do the following:
 -H: Sets the HOME environment variable to the home directory of the target user. This ensures that the package installation happens in the correct directory and avoids permission issues.
@@ -157,7 +111,7 @@ A site is a requirement in ERPNext, Frappe and all the other apps we will be nee
 ```console
 bench new-site [site-name]
 ```
-Install ERPNext and other Apps
+## 7. Install ERPNext and other Apps
 
 Download all the apps we want to install
 The first app we will download is the payments app. This app is required when setting up ERPNext.
@@ -184,13 +138,14 @@ We have successfully setup ERPNext version 15 on ubuntu 24.04. You can start the
 ```console
 bench start
 ```
+
 If you didn’t have any other ERPNext instance running on the same server, ERPNext will get started on port 8000. If you visit [YOUR SERVER IP:8000], you should be able to see ERPNext version 15 running.
 
 Please note that instances which are running on develop mode, like the one we just setup, will not get started when you restart your server. You will need to run the bench start command every time the server restarts.
 
 In the below steps, we will learn how to deploy the production mode.
 
-Setting ERPNext for Production
+## 8. Setting ERPNext for Production
 Enable Scheduler
 ```console
 bench --site [site-name] enable-scheduler
@@ -217,7 +172,7 @@ If you are prompted to save the new/existing config file, respond with a Y.
 
 When this completes doing the settings, your instance is now in production mode and can be accessed using your IP, without needing to use the port.
 
-How to implement multi-tenancy in ERPNext and the Frappe Framework.
+## 9. How to implement multi-tenancy in ERPNext and the Frappe Framework.
 
 Steps needed
 ```console
@@ -238,7 +193,7 @@ Add routes:
 127.0.0.1 second.site
 ```
 
-Steps to Install SSL
+## 10. Steps to Install SSL
 Install snapd on your machine
 
 ```console
@@ -278,7 +233,7 @@ sudo certbot renew --dry-run
 ```
 
 --------------------------------
-Share frappe site over local network on Ubuntu 24.04
+## 11. Share frappe site over local network on Ubuntu 24.04
 1. run [ip addr | grep inet] note down wlan0 or eth0 network IP.
 2. enable ufw
 3. allow 80 and 8000
@@ -287,13 +242,13 @@ I wish you all the best.
 
 # For more frappe apps follow below commands
 
-# Core Apps:
+## Core Apps:
 	frappe
 	erpnext
 	payments
 	webshop (eCommerce)
 -----------------------------------------
-# Additional-Apps:
+## Additional-Apps:
 	> hrms
 	insights
 	lms

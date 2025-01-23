@@ -1,16 +1,8 @@
 ## Steps
-# Step 1 – Installing Nginx
-# Step 2 – Installing Prerequisite
-```console
-sudo apt install php-fpm php-mysql php-xml php-intl php-mbstring nginx
-```
-
-# Step 3 – install MySQL
-```console
-sudo apt update
-sudo apt install mariadb-server
-sudo mysql_secure_installation
-```
+# Step 1 – Install Nginx
+# Step 2 – Install PHP
+# Step 3 – Install MariaDB
+# Step 3 – Create OJS DataBase
 
 ```console
 mysql -u root -p
