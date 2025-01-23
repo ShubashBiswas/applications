@@ -8,7 +8,7 @@ sudo apt install php-fpm php-mysql php-xml php-intl php-mbstring nginx
 # Step 3 – install MySQL
 ```console
 sudo apt update
-sudo apt install mysql-server
+sudo apt install mariadb-server
 sudo mysql_secure_installation
 ```
 

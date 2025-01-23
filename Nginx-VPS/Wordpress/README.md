@@ -2,18 +2,17 @@
 # Step 1 – Installing Nginx
 # Step 2 – Install MariaDB Server
 ```console
-sudo apt install mariadb-server mariadb-client
+sudo apt install mariadb-server
 sudo service mysql stop
 sudo service mysql start
 sudo mysql_secure_installation
-sudo mysql -u root -p
 ```
 
 # Step 3 – Managing the Nginx Process
 ```console
 sudo apt install php-fpm php-common php-mysql php-gmp php-curl php-intl php-mbstring php-xmlrpc php-gd php-xml php-cli php-zip
 
-sudo nano /etc/php/7.4/fpm/php.ini
+sudo nano /etc/php/8.3/fpm/php.ini
 ```
 
 ```markdown
@@ -28,8 +27,8 @@ date.timezone = America/Chicago
 ```
 
 ```markdown
-sudo service php7.4-fpm stop
-sudo service php7.4-fpm start
+sudo service php8.3-fpm stop
+sudo service php8.3-fpm start
 ```
 
 # Step 4 – Create WordPress Database

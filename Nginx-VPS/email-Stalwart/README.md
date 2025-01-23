@@ -19,7 +19,8 @@ sudo apt update && sudo apt upgrade -y
 To install Stalwart Mail Server on Linux or MacOS, execute the following command in your terminal:
 
 ```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://get.stalw.art/install.sh -o install.sh
+curl --proto '=https' --tlsv1.2 -sSf https://get.stalw.art/install.sh -o install.sh
+sudo sh install.sh
 ```
 
 ```htm
@@ -85,3 +86,7 @@ sudo systemctl reload nginx
    ```bash
    sudo certbot renew --dry-run
    ```
+### **Step 3: Restart service**
+```console
+sudo systemctl restart stalwart-mail
+```
