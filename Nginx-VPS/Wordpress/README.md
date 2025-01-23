@@ -8,7 +8,7 @@ sudo mysql -u root -p
 ```
 ```markdown
 CREATE DATABASE wpdb;
-CREATE USER 'wpdbuser'@'localhost' IDENTIFIED BY 'new_password_here';
+CREATE USER 'wpdbuser'@'localhost' IDENTIFIED BY 'wpdb_password_here';
 GRANT ALL ON wpdb.* TO 'wpdbuser'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EXIT;

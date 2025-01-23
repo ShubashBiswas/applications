@@ -5,7 +5,9 @@ Run the following command to install PHP modules required or recommended by phpM
 sudo apt install -y php-imagick php-phpseclib php-php-gettext php8.3-common php8.3-mysql php8.3-fpm php8.3-gd php8.3-imap php8.3-curl php8.3-zip php8.3-xml php8.3-mbstring php8.3-bz2 php8.3-intl php8.3-gmp
 ```
 ## Configure PHP
-
+```console
+sudo nano /etc/php/8.3/fpm/php.ini
+```
 ```markdown
 file_uploads = On
 allow_url_fopen = On

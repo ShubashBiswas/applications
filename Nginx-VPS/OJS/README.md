@@ -1,6 +1,6 @@
 ## Steps
 # Step 1 – Install Nginx
-# Step 2 – Install PHP
+# Step 2 – Install PHP with php-mbstring, php-xml, and php-intl
 # Step 3 – Install MariaDB
 # Step 3 – Create OJS DataBase
 
@@ -9,11 +9,13 @@ mysql -u root -p
 CREATE DATABASE ojs_db DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_520_ci;
 CREATE USER 'ojs_user'@'localhost' IDENTIFIED BY 'ojs_password';
 GRANT ALL ON ojs_db.* TO 'ojs_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
 ```
 
 # Step 4 – Configuring Nginx
 ```console
-sudo nano /etc/nginx/sites-available/your_domain
+sudo nano /etc/nginx/sites-available/ojs
 ```
 ```markdown
 server {
@@ -52,7 +54,7 @@ location ~ ^(.+\.php)(.*)$ {
 ```
 
 ```console
-sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/ojs /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
@@ -60,7 +62,7 @@ sudo systemctl restart nginx
 # Step 4 – Installing Open Journal System
 ```markdown
 cd /tmp
-curl -LO https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz
+wget https://pkp.sfu.ca/ojs/download/ojs-3.4.0-8.tar.gz
 tar xzvf ojs-3.4.0-8.tar.gz 
 sudo cp -a /tmp/ojs-3.4.0-8/. /var/www/ojs
 ```
