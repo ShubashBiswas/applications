@@ -74,3 +74,7 @@ sudo chown -R www-data:www-data /var/www/ojs-files
 ```
 Let's visit the following link on a browser.
 [http://server_domain_or_IP/](https://)
+
+# Step 5 – VS Code Permissions.
+Change File Ownership (Recommended for Development)
+sudo chown -R your-username:your-username /var/www/ojs

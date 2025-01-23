@@ -58,4 +58,8 @@ server {
 sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
 sudo service nginx restart
 ```
-Visit example.com for wordpress web installation 
+Visit example.com for wordpress web installation
+
+# Step 7 – VS Code Permissions.
+Change File Ownership (Recommended for Development)
+sudo chown -R your-username:your-username /var/www/wordpress
