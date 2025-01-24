@@ -64,7 +64,7 @@ Visit example.com for WordPress web installation
 Change File Ownership (Recommended for Development)
 ```console
 sudo usermod -aG www-data your-username
-sudo chown -R your-username:your-username /var/www/
+sudo chown -R www-data:www-data /var/www/
 sudo chmod -R g+rw /var/www
 ```
 Restart VS Code
