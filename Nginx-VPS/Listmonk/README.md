@@ -34,7 +34,7 @@ sudo nano config.toml
 ```
 4. Edit the config
 ```htm
-address = "0.0.0.0:9000"
+address = "localhost:9001"
 
 # Database.
 [db]
@@ -87,10 +87,21 @@ sudo nano /etc/nginx/sites-available/listmonk
 ```markdown
 server {
     listen 80;
-    server_name yourdomain.com;
-
+    server_name listmonk.example.com;
     location / {
-        proxy_pass http://127.0.0.1:9000;
+        proxy_pass http://localhost:9001;  # Change port if needed
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name listmonk.example.com;
+    location / {
+        proxy_pass http://localhost:9001;  # Change port if needed
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -106,3 +117,9 @@ sudo ln -s /etc/nginx/sites-available/listmonk /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+
+### **Step 3: Configure SSL**
+Set up SSL with Let's Encrypt (recommended for security):
+   ```bash
+sudo certbot --nginx
+   ```
