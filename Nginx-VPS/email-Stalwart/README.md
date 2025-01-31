@@ -13,6 +13,7 @@ Setting up a **Stalwart Mail Server** on an Ubuntu VPS with Nginx involves sever
 ### **Step 1: Update the System**
 ```bash
 sudo apt update && sudo apt upgrade -y
+hostnamectl set-hostname new-hostname
 ```
 
 ### **Step 2: install Stalwart Mail Server on Linux**
@@ -33,7 +34,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/stalwart-mail.servic
 ### **Step 6: Configure Nginx for Stalwart Mail**
 Edit the Nginx configuration to reverse-proxy the JMAP service:
 ```bash
-sudo nano /etc/nginx/sites-available/stalwart-mail
+sudo nano /etc/nginx/sites-available/mail
 ```
 
 Add the following:
@@ -70,7 +71,7 @@ server {
 
 Enable the configuration:
 ```bash
-sudo ln -s /etc/nginx/sites-available/stalwart-mail /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/mail /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
