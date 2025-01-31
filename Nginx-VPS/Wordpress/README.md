@@ -35,10 +35,11 @@ sudo nano /etc/nginx/sites-available/wordpress
 server {
     listen 80;
     listen [::]:80;
+    server_name  example.com;
+    return 301 https://$host$request_uri;
     root /var/www/wordpress;
     index  index.php index.html index.htm;
-    server_name  example.com;
-
+    
     client_max_body_size 100M;
     autoindex off;
     
@@ -47,10 +48,15 @@ server {
     }
 
     location ~ \.php$ {
-         include snippets/fastcgi-php.conf;
-         fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
-         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-         include fastcgi_params;
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+        try_files $uri =404;  # Prevent direct access to non-existing PHP files
+    }
+    location /.well-known/acme-challenge/ {
+    allow all;
+    root /var/www/html;
     }
 }
 ```

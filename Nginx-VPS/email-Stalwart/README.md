@@ -34,37 +34,32 @@ Created symlink /etc/systemd/system/multi-user.target.wants/stalwart-mail.servic
 ### **Step 6: Configure Nginx for Stalwart Mail**
 Edit the Nginx configuration to reverse-proxy the JMAP service:
 ```bash
-sudo nano /etc/nginx/sites-available/mail
+sudo nano /etc/nginx/sites-available/mail.conf
 ```
 
 Add the following:
 ```nginx
 server {
     listen 80;
-    server_name mail.yourdomain.com;
-
+    server_name mail.example.com;
     location / {
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://localhost:8080;  # Change port if needed
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-    }
-
-    location /acme-challenge/ {
-        root /var/www/html;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 
 server {
     listen 443 ssl;
-    server_name mail.yourdomain.com;
-
-    ssl_certificate /etc/letsencrypt/live/mail.yourdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/mail.yourdomain.com/privkey.pem;
-
+    server_name mail.example.com;
     location / {
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://localhost:8080;  # Change port if needed
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 ```
@@ -77,15 +72,9 @@ sudo systemctl reload nginx
 ```
 
 ### **Step 3: Configure SSL**
-1. Set up SSL with Let's Encrypt (recommended for security):
+Set up SSL with Let's Encrypt (recommended for security):
    ```bash
-   sudo apt install -y certbot python3-certbot-nginx
-   sudo certbot --nginx -d mail.yourdomain.com
-   ```
-   Replace `mail.yourdomain.com` with your domain name.
-2. Verify SSL auto-renewal:
-   ```bash
-   sudo certbot renew --dry-run
+sudo certbot --nginx
    ```
 ### **Step 3: Restart service**
 ```console
