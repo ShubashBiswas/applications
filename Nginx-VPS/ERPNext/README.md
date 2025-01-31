@@ -221,17 +221,6 @@ For one-step automatic ssl installation
 sudo certbot --nginx
 ```
 
-If you prefer manual installation,. do the following:
-```console
-sudo certbot certonly --nginx
-```
-
-Certbot packages on your system come with a cron job or systemd timer that will renew your certificates automatically before they expire. So there's no need for any more steps. If necessary, you can test automatic renewal for your certificates by running this command:
-
-```console
-sudo certbot renew --dry-run
-```
-
 --------------------------------
 ## 11. Share frappe site over local network on Ubuntu 24.04
 1. run [ip addr | grep inet] note down wlan0 or eth0 network IP.
