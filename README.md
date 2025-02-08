@@ -16,6 +16,9 @@
 ## ERP Applications
 1. ERPNext - latest
 ------------------------------------
+## Personal Accounting
+1. ezBookkeeping
+------------------------------------
 ## CMS Applications
 1. WordPress - latest
 2. OJS - latest
